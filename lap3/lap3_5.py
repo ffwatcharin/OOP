@@ -19,5 +19,19 @@ record_collection = {
 }
 
 def update_records(record, id, property, value):
-    pass
-
+  
+  if id in record.keys():
+    
+    if value == '' and record[id].get(property):
+        record[id].pop(property)
+    
+    elif property != 'tracks' and value != '':
+        record[id].update({property: value})
+    
+    elif property == 'tracks' and not record[id].get('tracks'):
+        record[id].update({'tracks':[value]})
+        
+    elif property == 'tracks' and value != '':
+        record[id][property].append(value) 
+    
+  return record
